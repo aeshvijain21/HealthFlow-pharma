@@ -53,10 +53,9 @@ router.post("/analyze", async (req, res) => {
 
     // Try current active Groq models in order
     const models = [
-      "llama-3.3-70b-versatile",   // best quality, free
-      "llama-3.1-8b-instant",      // fast fallback
-      "gemma2-9b-it",              // Google Gemma fallback
-    ];
+  "openai/gpt-oss-20b",
+  "openai/gpt-oss-120b"
+      ];
 
     let lastError = null;
 
