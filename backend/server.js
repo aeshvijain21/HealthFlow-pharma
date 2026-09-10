@@ -15,7 +15,10 @@ const aiRoutes     = require('./routes/ai');
 const app = express();
 
 // ─── Security & Middleware ────────────────────────────────────────────────
-app.use(helmet({ crossOriginResourcePolicy: false }));
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+  contentSecurityPolicy: false
+}));
 app.use(cors({
   origin: process.env.FRONTEND_URL || '*',
   credentials: true
