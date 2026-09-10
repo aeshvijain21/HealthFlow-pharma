@@ -1,0 +1,3747 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HealthFlow</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --teal: #0d9488;
+        --teal-dark: #0f766e;
+        --teal-light: #ccfbf1;
+        --teal-mid: #14b8a6;
+        --bg: #f0fdfa;
+        --card: #fff;
+        --sidebar: #fff;
+        --text: #0f172a;
+        --muted: #64748b;
+        --border: #e2e8f0;
+        --red: #ef4444;
+        --amber: #f59e0b;
+        --green: #10b981;
+        --blue: #3b82f6;
+        --indigo: #6366f1;
+        --purple: #8b5cf6;
+      }
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+      }
+      .hidden {
+        display: none !important;
+      }
+
+      /* ── LOGIN ── */
+      .login-page {
+        min-height: 100vh;
+        display: flex;
+        background: linear-gradient(
+          135deg,
+          #0f766e 0%,
+          #0d9488 40%,
+          #134e4a 100%
+        );
+      }
+      .login-left {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 60px;
+        color: #fff;
+      }
+      .login-left h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 48px;
+        line-height: 1.2;
+        margin-bottom: 16px;
+      }
+      .login-left p {
+        font-size: 18px;
+        opacity: 0.8;
+        margin-bottom: 40px;
+      }
+      .feat-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+        font-size: 15px;
+        opacity: 0.9;
+      }
+      .feat-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #5eead4;
+        flex-shrink: 0;
+      }
+      .login-right {
+        width: 480px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 48px;
+      }
+      .login-box {
+        width: 100%;
+      }
+      .login-box h2 {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+      .login-box .sub {
+        color: var(--muted);
+        margin-bottom: 32px;
+        font-size: 14px;
+      }
+      .field {
+        margin-bottom: 20px;
+      }
+      .field label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 6px;
+        color: #374151;
+      }
+      .field input,
+      .field select {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+        font-size: 14px;
+        font-family: inherit;
+        transition: 0.2s;
+        background: #f9fafb;
+      }
+      .field input:focus,
+      .field select:focus {
+        outline: none;
+        border-color: var(--teal);
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+      }
+      .btn-primary {
+        width: 100%;
+        padding: 12px;
+        background: var(--teal);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+        transition: 0.2s;
+      }
+      .btn-primary:hover {
+        background: var(--teal-dark);
+      }
+      .signup-link {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .signup-link span {
+        color: var(--teal);
+        font-weight: 500;
+        cursor: pointer;
+      }
+      .error-msg {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        color: #dc2626;
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-size: 13px;
+        margin-bottom: 16px;
+      }
+      .success-msg {
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        color: #166534;
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-size: 13px;
+        margin-bottom: 16px;
+      }
+      .demo-hint {
+        background: #f0fdfa;
+        border: 1px solid #99f6e4;
+        border-radius: 8px;
+        padding: 12px 14px;
+        margin-top: 16px;
+        font-size: 12px;
+        color: var(--teal-dark);
+      }
+      .demo-hint strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      /* SIGNUP */
+      .signup-page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg);
+        padding: 40px;
+      }
+      .signup-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 48px;
+        width: 100%;
+        max-width: 520px;
+        box-shadow: 0 4px 40px rgba(0, 0, 0, 0.08);
+      }
+      .signup-card h2 {
+        font-size: 26px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .signup-card .sub {
+        color: var(--muted);
+        font-size: 13px;
+        margin-bottom: 28px;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      /* ── APP LAYOUT ── */
+      .app {
+        display: flex;
+        min-height: 100vh;
+      }
+      .sidebar {
+        width: 260px;
+        background: var(--sidebar);
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 100;
+        overflow-y: auto;
+      }
+      .sidebar-header {
+        padding: 24px 20px;
+        border-bottom: 1px solid var(--border);
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .logo-icon {
+        width: 36px;
+        height: 36px;
+        background: var(--teal);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .logo-icon svg {
+        width: 20px;
+        height: 20px;
+        fill: #fff;
+      }
+      .logo-text {
+        font-family: "Playfair Display", serif;
+        font-size: 20px;
+        color: var(--teal-dark);
+      }
+      .role-badge {
+        display: inline-flex;
+        align-items: center;
+        margin-top: 10px;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+      .rb-patient {
+        background: #ccfbf1;
+        color: #0f766e;
+      }
+      .rb-doctor {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .rb-admin {
+        background: #ede9fe;
+        color: #4c1d95;
+      }
+      .user-pill {
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--teal);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 600;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+      .user-info .name {
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .user-info .role {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .nav {
+        padding: 16px 12px;
+        flex: 1;
+      }
+      .nav-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        text-transform: uppercase;
+        padding: 0 8px;
+        margin: 16px 0 6px;
+      }
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 400;
+        color: #374151;
+        transition: 0.15s;
+        margin-bottom: 2px;
+      }
+      .nav-item:hover {
+        background: #f0fdfa;
+        color: var(--teal);
+      }
+      .nav-item.active {
+        background: var(--teal);
+        color: #fff;
+      }
+      .nav-item svg {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        fill: currentColor;
+      }
+      .sidebar-footer {
+        padding: 16px 12px;
+      }
+      .btn-logout {
+        width: 100%;
+        padding: 10px;
+        background: #fef2f2;
+        color: #dc2626;
+        border: none;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: inherit;
+        transition: 0.2s;
+      }
+      .btn-logout:hover {
+        background: #fee2e2;
+      }
+      .main {
+        margin-left: 260px;
+        flex: 1;
+        min-height: 100vh;
+      }
+      .topbar {
+        background: #fff;
+        border-bottom: 1px solid var(--border);
+        padding: 0 32px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+      }
+      .page-title h2 {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .page-title p {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .topbar-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .content {
+        padding: 32px;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 24px;
+      }
+      .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .card-header h3 {
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      /* ── STATS ── */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+      .stats-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+      .stat-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+      .stat-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+      }
+      .stat-card.teal::before {
+        background: var(--teal);
+      }
+      .stat-card.amber::before {
+        background: var(--amber);
+      }
+      .stat-card.green::before {
+        background: var(--green);
+      }
+      .stat-card.red::before {
+        background: var(--red);
+      }
+      .stat-card.blue::before {
+        background: var(--blue);
+      }
+      .stat-card.purple::before {
+        background: var(--purple);
+      }
+      .stat-label {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 500;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .stat-val {
+        font-size: 32px;
+        font-weight: 600;
+        line-height: 1;
+      }
+      .stat-sub {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 6px;
+      }
+
+      /* ── BADGES ── */
+      .card-badge {
+        font-size: 11px;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-weight: 500;
+      }
+      .badge-green {
+        background: #d1fae5;
+        color: #065f46;
+      }
+      .badge-amber {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .badge-red {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .badge-blue {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .badge-teal {
+        background: var(--teal-light);
+        color: var(--teal-dark);
+      }
+      .badge-purple {
+        background: #ede9fe;
+        color: #4c1d95;
+      }
+      .badge-gray {
+        background: #f1f5f9;
+        color: #64748b;
+      }
+
+      /* ── BUTTONS ── */
+      .btn-sm {
+        padding: 6px 14px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: inherit;
+        border: none;
+        transition: 0.2s;
+      }
+      .btn-teal {
+        background: var(--teal);
+        color: #fff;
+      }
+      .btn-teal:hover {
+        background: var(--teal-dark);
+      }
+      .btn-outline {
+        background: #fff;
+        color: var(--teal);
+        border: 1.5px solid var(--teal);
+      }
+      .btn-outline:hover {
+        background: var(--teal-light);
+      }
+      .btn-red {
+        background: #fee2e2;
+        color: #dc2626;
+      }
+      .btn-red:hover {
+        background: #fecaca;
+      }
+      .btn-blue {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .btn-blue:hover {
+        background: #bfdbfe;
+      }
+      .btn-full {
+        width: 100%;
+        padding: 13px;
+        background: var(--teal);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+        transition: 0.2s;
+      }
+      .btn-full:hover {
+        background: var(--teal-dark);
+      }
+      .btn-full:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* ── FORMS ── */
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+      .form-group label .req {
+        color: var(--red);
+      }
+      .textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+        font-size: 14px;
+        font-family: inherit;
+        resize: vertical;
+        min-height: 100px;
+        transition: 0.2s;
+      }
+      .textarea:focus {
+        outline: none;
+        border-color: var(--teal);
+        box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+      }
+      .inp {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+        font-size: 14px;
+        font-family: inherit;
+        transition: 0.2s;
+        background: #f9fafb;
+      }
+      .inp:focus {
+        outline: none;
+        border-color: var(--teal);
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+      }
+      select.inp {
+        background: #f9fafb;
+      }
+      input[type="range"] {
+        flex: 1;
+        accent-color: var(--teal);
+      }
+      input[type="date"] {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+        font-size: 14px;
+        font-family: inherit;
+        transition: 0.2s;
+      }
+      input[type="date"]:focus {
+        outline: none;
+        border-color: var(--teal);
+        box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+      }
+      .severity-wrap {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .severity-num {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--teal);
+        min-width: 30px;
+      }
+      .checkbox-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .check-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px;
+        background: #f8fafc;
+        border: 1.5px solid var(--border);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.15s;
+        font-size: 14px;
+      }
+      .check-item:hover {
+        border-color: var(--teal);
+        background: var(--teal-light);
+      }
+      .check-item input {
+        accent-color: var(--teal);
+      }
+      .ai-analysis {
+        background: linear-gradient(135deg, #f0fdfa, #e0f2fe);
+        border: 1px solid #99f6e4;
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 20px;
+      }
+      .ai-analysis h4 {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--teal-dark);
+        margin-bottom: 10px;
+      }
+      .ai-analysis p {
+        font-size: 13px;
+        line-height: 1.7;
+        color: #374151;
+      }
+
+      /* ── TABLE ── */
+      .report-table {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      .table-header {
+        padding: 20px 24px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .table-header h3 {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      thead {
+        background: #f8fafc;
+      }
+      th {
+        padding: 12px 16px;
+        text-align: left;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border-bottom: 1px solid var(--border);
+      }
+      td {
+        padding: 12px 16px;
+        font-size: 13px;
+        border-bottom: 1px solid var(--border);
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      tr:hover td {
+        background: #f8fafc;
+      }
+      .severity-pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      /* ── REPORT CARDS ── */
+      .report-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        cursor: pointer;
+        transition: 0.2s;
+        margin-bottom: 12px;
+      }
+      .report-card:hover {
+        border-color: var(--teal);
+        box-shadow: 0 2px 12px rgba(13, 148, 136, 0.1);
+      }
+      .report-card.expanded {
+        border-color: var(--teal);
+      }
+      .report-meta {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+      }
+      .advice-box {
+        background: #f0fdfa;
+        border-radius: 8px;
+        padding: 12px;
+        margin-top: 12px;
+        font-size: 13px;
+        color: #065f46;
+        line-height: 1.6;
+      }
+
+      /* ── CHAT ── */
+      .chat-layout {
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        gap: 20px;
+        height: calc(100vh - 160px);
+      }
+      .chat-main {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .chat-header {
+        padding: 20px 24px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .bot-avatar {
+        width: 40px;
+        height: 40px;
+        background: var(--teal);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+      }
+      .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .msg {
+        max-width: 75%;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .msg.bot {
+        align-self: flex-start;
+      }
+      .msg.user {
+        align-self: flex-end;
+      }
+      .msg-bubble {
+        padding: 12px 16px;
+        border-radius: 16px;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .msg.bot .msg-bubble {
+        background: #f1f5f9;
+        color: #1e293b;
+        border-bottom-left-radius: 4px;
+      }
+      .msg.user .msg-bubble {
+        background: var(--teal);
+        color: #fff;
+        border-bottom-right-radius: 4px;
+      }
+      .msg-time {
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .msg.user .msg-time {
+        text-align: right;
+      }
+      .typing-indicator {
+        display: flex;
+        gap: 4px;
+        padding: 12px 16px;
+        background: #f1f5f9;
+        border-radius: 16px;
+        border-bottom-left-radius: 4px;
+        width: fit-content;
+      }
+      .typing-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--muted);
+        border-radius: 50%;
+        animation: bounce 1.2s infinite;
+      }
+      .typing-dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .typing-dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      @keyframes bounce {
+        0%,
+        60%,
+        100% {
+          transform: translateY(0);
+        }
+        30% {
+          transform: translateY(-6px);
+        }
+      }
+      .chat-input-area {
+        padding: 16px 20px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        gap: 10px;
+      }
+      .chat-input {
+        flex: 1;
+        padding: 11px 16px;
+        border: 1.5px solid var(--border);
+        border-radius: 24px;
+        font-size: 14px;
+        font-family: inherit;
+        transition: 0.2s;
+      }
+      .chat-input:focus {
+        outline: none;
+        border-color: var(--teal);
+      }
+      .send-btn {
+        padding: 11px 20px;
+        background: var(--teal);
+        color: #fff;
+        border: none;
+        border-radius: 24px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .send-btn:hover {
+        background: var(--teal-dark);
+      }
+      .send-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .quick-btn {
+        width: 100%;
+        text-align: left;
+        padding: 9px 12px;
+        background: #f8fafc;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-size: 12px;
+        cursor: pointer;
+        font-family: inherit;
+        color: #374151;
+        margin-bottom: 6px;
+        line-height: 1.4;
+      }
+      .quick-btn:hover {
+        background: var(--teal-light);
+        border-color: var(--teal);
+        color: var(--teal-dark);
+      }
+
+      /* ── MODAL ── */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .modal {
+        background: #fff;
+        border-radius: 20px;
+        padding: 32px;
+        width: 100%;
+        max-width: 560px;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+      }
+      .modal h3 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+      .modal-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 32px;
+        height: 32px;
+        border: none;
+        background: #f1f5f9;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-close:hover {
+        background: #e2e8f0;
+      }
+
+      /* ── MISC ── */
+      .toast {
+        position: fixed;
+        bottom: 32px;
+        right: 32px;
+        background: #1e293b;
+        color: #fff;
+        padding: 14px 20px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 999;
+        transform: translateY(80px);
+        opacity: 0;
+        transition: 0.3s;
+      }
+      .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      .toast.success {
+        background: #065f46;
+        border-left: 4px solid var(--green);
+      }
+      .toast.err {
+        background: #991b1b;
+        border-left: 4px solid var(--red);
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .fade-in {
+        animation: fadeIn 0.3s ease forwards;
+      }
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 4px;
+      }
+      .med-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        background: #f8fafc;
+        border-radius: 10px;
+        margin-bottom: 8px;
+        border: 1px solid var(--border);
+      }
+      .med-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .spinner {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .empty-state {
+        text-align: center;
+        padding: 60px;
+        color: var(--muted);
+      }
+      .empty-state .icon {
+        font-size: 48px;
+        margin-bottom: 12px;
+      }
+      .section-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+      .divider {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 20px 0;
+      }
+      .info-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 13px;
+      }
+      .info-row:last-child {
+        border-bottom: none;
+      }
+      .info-label {
+        color: var(--muted);
+        font-weight: 500;
+      }
+      .clinical-note {
+        background: #fef3c7;
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 8px;
+        font-size: 13px;
+        border-left: 3px solid var(--amber);
+      }
+      .clinical-note .note-meta {
+        font-size: 11px;
+        color: var(--muted);
+        margin-bottom: 4px;
+      }
+      .drug-tag {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 10px;
+        background: #dbeafe;
+        color: #1e40af;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 500;
+        margin: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ═══════════════════════════════ LOGIN PAGE ═══════════════════════════ -->
+    <div id="loginPage" class="login-page">
+      <div class="login-left">
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+          "
+        >
+          <div
+            style="
+              width: 44px;
+              height: 44px;
+              background: rgba(255, 255, 255, 0.2);
+              border-radius: 12px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="#fff">
+              <path
+                d="M12 2L4 7v10l8 5 8-5V7L12 2zm0 2.5L18 8v8l-6 3.75L6 16V8l6-3.5z"
+              />
+            </svg>
+          </div>
+          <span
+            style="
+              font-family: &quot;Playfair Display&quot;, serif;
+              font-size: 24px;
+              color: #fff;
+            "
+            >HealthFlow</span
+          >
+        </div>
+        <h1>Your Health,<br />Securely Managed</h1>
+        <p>
+          Patients, doctors, and administrators — all in one secure platform.
+        </p>
+        <div>
+          <div class="feat-item">
+            <div class="feat-dot"></div>
+            Patient symptom reporting with AI analysis
+          </div>
+          <div class="feat-item">
+            <div class="feat-dot"></div>
+            Doctor portal with clinical notes & drug dispensing
+          </div>
+          <div class="feat-item">
+            <div class="feat-dot"></div>
+            Admin control panel & pharma CSV export
+          </div>
+          <div class="feat-item">
+            <div class="feat-dot"></div>
+            Real-time patient–doctor assignment
+          </div>
+        </div>
+      </div>
+      <div class="login-right">
+        <div class="login-box">
+          <h2>Sign in to HealthFlow</h2>
+          <p class="sub">Access your personalised health dashboard</p>
+          <div id="loginError" class="error-msg hidden"></div>
+          <div class="field">
+            <label>Email</label>
+            <input
+              type="email"
+              id="loginEmail"
+              placeholder="you@example.com"
+              onkeydown="if (event.key === 'Enter') doLogin();"
+            />
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="••••••••"
+              onkeydown="if (event.key === 'Enter') doLogin();"
+            />
+          </div>
+          <button class="btn-primary" id="loginBtn" onclick="doLogin()">
+            Sign In
+          </button>
+          <div class="signup-link">
+            Don't have an account?
+            <span onclick="showSignup()">Sign up as Patient</span>
+          </div>
+          <div class="demo-hint">
+            <strong>Demo credentials (after running seed):</strong>
+            Patient: patient@healthflow.com / Patient@1234<br />
+            Doctor: doctor@healthflow.com / Doctor@1234<br />
+            Admin: admin@healthflow.com / Admin@1234
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════ SIGNUP PAGE ═══════════════════════════ -->
+    <div id="signupPage" class="signup-page hidden">
+      <div class="signup-card">
+        <h2>Create Patient Account</h2>
+        <p class="sub">Doctors & admins are created by the admin panel</p>
+        <div id="signupError" class="error-msg hidden"></div>
+        <div class="form-row">
+          <div class="field">
+            <label>First Name <span style="color: var(--red)">*</span></label
+            ><input type="text" id="signupFirst" placeholder="Aesh" />
+          </div>
+          <div class="field">
+            <label>Last Name <span style="color: var(--red)">*</span></label
+            ><input type="text" id="signupLast" placeholder="Vijain" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Email <span style="color: var(--red)">*</span></label
+          ><input type="email" id="signupEmail" placeholder="you@example.com" />
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Password <span style="color: var(--red)">*</span></label
+            ><input
+              type="password"
+              id="signupPass"
+              placeholder="Min. 6 characters"
+            />
+          </div>
+          <div class="field">
+            <label>Age</label
+            ><input
+              type="number"
+              id="signupAge"
+              placeholder="30"
+              min="1"
+              max="120"
+            />
+          </div>
+        </div>
+        <div class="field">
+          <label>Gender</label>
+          <select id="signupGender">
+            <option value="">Select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <button class="btn-primary" id="signupBtn" onclick="doSignup()">
+          Create Account
+        </button>
+        <div class="signup-link" style="margin-top: 12px">
+          Already have an account? <span onclick="showLogin()">Sign in</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ MAIN APP ════════════════════════════ -->
+    <div id="appPage" class="app hidden">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <div class="logo-icon">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2L4 7v10l8 5 8-5V7L12 2zm0 2.5L18 8v8l-6 3.75L6 16V8l6-3.5z"
+                />
+              </svg>
+            </div>
+            <span class="logo-text">HealthFlow</span>
+          </div>
+          <div id="roleBadge" class="role-badge rb-patient">Patient</div>
+          <div class="user-pill">
+            <div class="avatar" id="userAvatar">?</div>
+            <div class="user-info">
+              <div class="name" id="userName">Loading...</div>
+              <div class="role" id="userRoleLabel">patient</div>
+            </div>
+          </div>
+        </div>
+        <nav class="nav" id="sidebarNav"></nav>
+        <div class="sidebar-footer">
+          <button class="btn-logout" onclick="doLogout()">Sign Out</button>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="main">
+        <div class="topbar">
+          <div class="page-title">
+            <h2 id="topbarTitle">Dashboard</h2>
+            <p id="topbarSub">Welcome back</p>
+          </div>
+          <div class="topbar-right">
+            <div class="avatar" id="topbarAvatar" style="cursor: pointer">
+              ?
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── PATIENT PAGES ──────────────────────────────────────────── -->
+
+        <!-- Dashboard (patient) -->
+        <div id="page-dashboard" class="content fade-in hidden">
+          <div class="stats-grid">
+            <div class="stat-card teal">
+              <div class="stat-label">My Reports</div>
+              <div class="stat-val" id="statMyReports">0</div>
+              <div class="stat-sub">Total submitted</div>
+            </div>
+            <div class="stat-card amber">
+              <div class="stat-label">This Week</div>
+              <div class="stat-val" id="statWeekReports">0</div>
+              <div class="stat-sub">Recent reports</div>
+            </div>
+            <div class="stat-card green">
+              <div class="stat-label">My Medications</div>
+              <div class="stat-val" id="statMeds">0</div>
+              <div class="stat-sub">Active prescriptions</div>
+            </div>
+            <div class="stat-card blue">
+              <div class="stat-label">My Doctor</div>
+              <div class="stat-val" style="font-size: 18px" id="statDoctor">
+                —
+              </div>
+              <div class="stat-sub">Assigned physician</div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px">
+            <div class="card">
+              <div class="card-header">
+                <h3>Recent Reports</h3>
+                <button
+                  class="btn-sm btn-outline"
+                  onclick="navTo('my-reports')"
+                >
+                  View All
+                </button>
+              </div>
+              <div id="dashRecentReports">
+                <div class="empty-state">
+                  <div class="icon">📋</div>
+                  <p>No reports yet. Submit your first report!</p>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><h3>My Medications</h3></div>
+              <div id="dashMedList">
+                <p style="color: var(--muted); font-size: 13px">
+                  No medications listed.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Symptom Report (patient) -->
+        <div id="page-symptoms" class="content fade-in hidden">
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1.4fr 1fr;
+              gap: 24px;
+              max-width: 1100px;
+            "
+          >
+            <div>
+              <div class="card">
+                <h3
+                  style="font-size: 16px; font-weight: 600; margin-bottom: 20px"
+                >
+                  Report Symptoms
+                </h3>
+                <div class="form-group">
+                  <label
+                    >Describe your symptoms <span class="req">*</span></label
+                  >
+                  <textarea
+                    class="textarea"
+                    id="symptomDesc"
+                    placeholder="E.g. I have been experiencing headaches and dizziness for the past 2 days..."
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <label>Severity (1–10) <span class="req">*</span></label>
+                  <div class="severity-wrap">
+                    <span class="severity-num" id="sevNum">5</span>
+                    <input
+                      type="range"
+                      min="1"
+                      max="10"
+                      value="5"
+                      id="severitySlider"
+                      oninput="
+                        document.getElementById('sevNum').textContent =
+                          this.value
+                      "
+                    />
+                    <span
+                      style="font-size: 12px; color: var(--muted)"
+                      id="sevLabel"
+                      >Moderate</span
+                    >
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Symptom start date <span class="req">*</span></label>
+                  <input type="date" id="symptomDate" />
+                </div>
+                <div class="form-group">
+                  <label>Medications taken during this period</label>
+                  <div class="checkbox-grid" id="medCheckboxes">
+                    <!-- filled by JS -->
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Additional notes</label>
+                  <textarea
+                    class="textarea"
+                    id="addNotes"
+                    style="min-height: 70px"
+                    placeholder="Any other relevant info..."
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <label>Follow-up of previous report?</label>
+                  <select class="inp" id="followUpSelect">
+                    <option value="">No — new report</option>
+                  </select>
+                </div>
+                <button
+                  class="btn-full"
+                  id="submitReportBtn"
+                  onclick="submitSymptomReport()"
+                >
+                  Submit & Get AI Analysis
+                </button>
+                <div id="aiAnalysisBox" class="ai-analysis hidden">
+                  <h4>🤖 AI Health Analysis</h4>
+                  <p id="aiAnalysisText"></p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="card" style="margin-bottom: 16px">
+                <h4
+                  style="font-size: 14px; font-weight: 600; margin-bottom: 12px"
+                >
+                  Your Active Medications
+                </h4>
+                <div id="symptomsPageMedList">
+                  <p style="font-size: 13px; color: var(--muted)">Loading...</p>
+                </div>
+              </div>
+              <div
+                class="card"
+                style="background: #fef3c7; border-color: #fcd34d"
+              >
+                <h4
+                  style="
+                    font-size: 13px;
+                    font-weight: 600;
+                    margin-bottom: 8px;
+                    color: #92400e;
+                  "
+                >
+                  ⚠️ Important Note
+                </h4>
+                <p style="font-size: 12px; color: #92400e; line-height: 1.6">
+                  This tool is for tracking purposes only. Always consult your
+                  doctor for medical advice. In emergencies, call your local
+                  emergency number immediately.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- My Reports (patient) -->
+        <div id="page-my-reports" class="content fade-in hidden">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin-bottom: 24px;
+            "
+          >
+            <div>
+              <h2 style="font-size: 20px; font-weight: 600">
+                My Symptom Reports
+              </h2>
+              <p style="font-size: 13px; color: var(--muted)">
+                Your full health report history
+              </p>
+            </div>
+            <button
+              class="btn-sm btn-teal"
+              style="padding: 10px 18px"
+              onclick="navTo('symptoms')"
+            >
+              + New Report
+            </button>
+          </div>
+          <div id="patientReportsList"></div>
+        </div>
+
+        <!-- AI Chatbot (patient) -->
+        <div
+          id="page-chatbot"
+          class="content fade-in hidden"
+          style="padding-bottom: 0"
+        >
+          <div style="margin-bottom: 16px">
+            <h2 style="font-size: 20px; font-weight: 600">
+              AI Health Assistant
+            </h2>
+            <p style="font-size: 13px; color: var(--muted)">
+              Ask about symptoms, medications & health information
+            </p>
+          </div>
+          <div class="chat-layout">
+            <div class="chat-main">
+              <div class="chat-header">
+                <div class="bot-avatar">🤖</div>
+                <div>
+                  <div style="font-size: 15px; font-weight: 600">
+                    HealthFlow AI Assistant
+                  </div>
+                  <div
+                    style="
+                      font-size: 12px;
+                      color: var(--muted);
+                      display: flex;
+                      align-items: center;
+                      gap: 6px;
+                    "
+                  >
+                    <div
+                      style="
+                        width: 8px;
+                        height: 8px;
+                        background: var(--green);
+                        border-radius: 50%;
+                        border: 2px solid #fff;
+                      "
+                    ></div>
+                    Online • Ready to help
+                  </div>
+                </div>
+              </div>
+              <div class="chat-messages" id="chatMessages">
+                <div class="msg bot">
+                  <div class="msg-bubble">
+                    Hello! I'm your AI Health Assistant. Ask me about your
+                    medications, symptoms, or any health concerns. How can I
+                    help you today?
+                  </div>
+                  <div class="msg-time">Just now</div>
+                </div>
+              </div>
+              <div class="chat-input-area">
+                <input
+                  class="chat-input"
+                  id="chatInput"
+                  placeholder="Ask about drug symptoms or health information..."
+                  onkeydown="if (event.key === 'Enter') sendChat();"
+                />
+                <button class="send-btn" id="sendBtn" onclick="sendChat()">
+                  Send
+                </button>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 16px">
+              <div class="card">
+                <h4
+                  style="
+                    font-size: 13px;
+                    font-weight: 600;
+                    margin-bottom: 12px;
+                    color: var(--muted);
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                  "
+                >
+                  Active Medications
+                </h4>
+                <div id="chatMedList">
+                  <p style="font-size: 13px; color: var(--muted)">Loading...</p>
+                </div>
+              </div>
+              <div class="card" style="padding: 16px">
+                <h4
+                  style="
+                    font-size: 12px;
+                    font-weight: 600;
+                    margin-bottom: 10px;
+                    color: var(--muted);
+                    text-transform: uppercase;
+                  "
+                >
+                  Quick Questions
+                </h4>
+                <button
+                  class="quick-btn"
+                  onclick="
+                    askQuestion(
+                      'What are the common side effects of my medications?',
+                    )
+                  "
+                >
+                  Side effects of my meds?
+                </button>
+                <button
+                  class="quick-btn"
+                  onclick="
+                    askQuestion(
+                      'Are there any dangerous drug interactions between my medications?',
+                    )
+                  "
+                >
+                  Drug interactions?
+                </button>
+                <button
+                  class="quick-btn"
+                  onclick="
+                    askQuestion(
+                      'What foods should I avoid with my current medications?',
+                    )
+                  "
+                >
+                  Foods to avoid?
+                </button>
+                <button
+                  class="quick-btn"
+                  onclick="
+                    askQuestion(
+                      'I have a headache. Could it be from my medication?',
+                    )
+                  "
+                >
+                  Headache from meds?
+                </button>
+                <button
+                  class="quick-btn"
+                  onclick="
+                    askQuestion('When is the best time to take my medications?')
+                  "
+                >
+                  Best time to take meds?
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── DOCTOR PAGES ────────────────────────────────────────────── -->
+
+        <!-- Doctor Dashboard -->
+        <div id="page-doc-dashboard" class="content fade-in hidden">
+          <div class="stats-grid">
+            <div class="stat-card teal">
+              <div class="stat-label">My Patients</div>
+              <div class="stat-val" id="docStatPatients">0</div>
+              <div class="stat-sub">Assigned</div>
+            </div>
+            <div class="stat-card amber">
+              <div class="stat-label">Total Reports</div>
+              <div class="stat-val" id="docStatReports">0</div>
+              <div class="stat-sub">From my patients</div>
+            </div>
+            <div class="stat-card red">
+              <div class="stat-label">Adverse Events</div>
+              <div class="stat-val" id="docStatAdverse">0</div>
+              <div class="stat-sub">Severity ≥ 7</div>
+            </div>
+            <div class="stat-card green">
+              <div class="stat-label">Reviewed</div>
+              <div class="stat-val" id="docStatReviewed">0</div>
+              <div class="stat-sub">Reports reviewed</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>Recent Patient Reports</h3>
+              <button class="btn-sm btn-outline" onclick="navTo('doc-reports')">
+                View All
+              </button>
+            </div>
+            <div id="docDashRecentReports"></div>
+          </div>
+        </div>
+
+        <!-- Doctor: View Patient Reports -->
+        <div id="page-doc-reports" class="content fade-in hidden">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin-bottom: 24px;
+            "
+          >
+            <div>
+              <h2 style="font-size: 20px; font-weight: 600">Patient Reports</h2>
+              <p style="font-size: 13px; color: var(--muted)">
+                All reports from your assigned patients
+              </p>
+            </div>
+            <div style="display: flex; gap: 8px">
+              <select
+                class="inp"
+                style="width: 160px"
+                id="docReportFilter"
+                onchange="loadDoctorReports()"
+              >
+                <option value="">All Severity</option>
+                <option value="high">High (≥7)</option>
+                <option value="med">Moderate (4–6)</option>
+                <option value="low">Mild (1–3)</option>
+              </select>
+            </div>
+          </div>
+          <div id="docReportsList"></div>
+        </div>
+
+        <!-- Doctor: Submit report on behalf of patient -->
+        <div id="page-doc-submit" class="content fade-in hidden">
+          <div style="max-width: 700px">
+            <div style="margin-bottom: 20px">
+              <h2 style="font-size: 20px; font-weight: 600">
+                Submit Report on Behalf of Patient
+              </h2>
+              <p style="font-size: 13px; color: var(--muted)">
+                For patients who visit in person
+              </p>
+            </div>
+            <div class="card">
+              <div class="form-group">
+                <label>Select Patient <span class="req">*</span></label>
+                <select class="inp" id="docPatientSelect">
+                  <option value="">Choose a patient...</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Describe Symptoms <span class="req">*</span></label>
+                <textarea
+                  class="textarea"
+                  id="docSymptomDesc"
+                  placeholder="Patient's reported symptoms..."
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label>Severity (1–10) <span class="req">*</span></label>
+                <div class="severity-wrap">
+                  <span class="severity-num" id="docSevNum">5</span>
+                  <input
+                    type="range"
+                    min="1"
+                    max="10"
+                    value="5"
+                    id="docSeveritySlider"
+                    oninput="
+                      document.getElementById('docSevNum').textContent =
+                        this.value
+                    "
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Symptom Start Date <span class="req">*</span></label>
+                <input type="date" id="docSymptomDate" />
+              </div>
+              <div class="form-group">
+                <label>Medications Taken</label>
+                <div class="checkbox-grid" id="docMedCheckboxes">
+                  <label class="check-item"
+                    ><input type="checkbox" value="Aspirin" /> Aspirin</label
+                  >
+                  <label class="check-item"
+                    ><input type="checkbox" value="Lisinopril" />
+                    Lisinopril</label
+                  >
+                  <label class="check-item"
+                    ><input type="checkbox" value="Metformin" />
+                    Metformin</label
+                  >
+                  <label class="check-item"
+                    ><input type="checkbox" value="Paracetamol" />
+                    Paracetamol</label
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Dispensed Drugs (Treatment given)</label>
+                <div id="drugDispenseList"></div>
+                <button
+                  class="btn-sm btn-outline"
+                  style="margin-top: 8px"
+                  onclick="addDrugRow()"
+                >
+                  + Add Drug
+                </button>
+              </div>
+              <div class="form-group">
+                <label>Clinical Notes</label>
+                <textarea
+                  class="textarea"
+                  id="docClinicalNote"
+                  style="min-height: 80px"
+                  placeholder="Your clinical observations..."
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label>Additional Notes</label>
+                <textarea
+                  class="textarea"
+                  id="docNotes"
+                  style="min-height: 70px"
+                  placeholder="Extra notes for the report..."
+                ></textarea>
+              </div>
+              <button
+                class="btn-full"
+                id="docSubmitBtn"
+                onclick="docSubmitReport()"
+              >
+                Submit Report
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doctor: My Patients list -->
+        <div id="page-doc-patients" class="content fade-in hidden">
+          <div style="margin-bottom: 24px">
+            <h2 style="font-size: 20px; font-weight: 600">My Patients</h2>
+            <p style="font-size: 13px; color: var(--muted)">
+              Patients assigned to you
+            </p>
+          </div>
+          <div id="docPatientsList"></div>
+        </div>
+
+        <!-- ─── ADMIN PAGES ────────────────────────────────────────────── -->
+
+        <!-- Admin Dashboard -->
+        <div id="page-admin-dashboard" class="content fade-in hidden">
+          <div class="stats-grid">
+            <div class="stat-card teal">
+              <div class="stat-label">Total Patients</div>
+              <div class="stat-val" id="adminStatPatients">0</div>
+              <div class="stat-sub">Registered</div>
+            </div>
+            <div class="stat-card blue">
+              <div class="stat-label">Total Doctors</div>
+              <div class="stat-val" id="adminStatDoctors">0</div>
+              <div class="stat-sub">Active physicians</div>
+            </div>
+            <div class="stat-card amber">
+              <div class="stat-label">Total Reports</div>
+              <div class="stat-val" id="adminStatReports">0</div>
+              <div class="stat-sub">All submissions</div>
+            </div>
+            <div class="stat-card red">
+              <div class="stat-label">Adverse Events</div>
+              <div class="stat-val" id="adminStatAdverse">0</div>
+              <div class="stat-sub">Severity ≥ 7</div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px">
+            <div class="stat-card purple" style="padding: 20px">
+              <div class="stat-label">Unassigned Patients</div>
+              <div class="stat-val" id="adminStatUnassigned">0</div>
+              <div class="stat-sub">Need doctor allocation</div>
+              <button
+                class="btn-sm btn-teal"
+                style="margin-top: 12px"
+                onclick="navTo('admin-assign')"
+              >
+                Assign Now →
+              </button>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3>Recent Reports</h3>
+                <button
+                  class="btn-sm btn-outline"
+                  onclick="navTo('admin-reports')"
+                >
+                  View All
+                </button>
+              </div>
+              <div id="adminRecentReports"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin: All Reports -->
+        <div id="page-admin-reports" class="content fade-in hidden">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin-bottom: 24px;
+            "
+          >
+            <div>
+              <h2 style="font-size: 20px; font-weight: 600">All Reports</h2>
+              <p style="font-size: 13px; color: var(--muted)">
+                Full system-wide report database
+              </p>
+            </div>
+            <button
+              class="btn-sm btn-teal"
+              style="padding: 10px 18px"
+              onclick="exportCSV()"
+            >
+              ⬇ Export CSV
+            </button>
+          </div>
+          <div class="report-table">
+            <div class="table-header">
+              <h3>Patient Symptom Database</h3>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                <input
+                  class="inp"
+                  style="width: 180px; padding: 6px 12px"
+                  placeholder="Search patient..."
+                  id="adminReportSearch"
+                  oninput="loadAdminReports()"
+                />
+                <select
+                  class="inp"
+                  style="width: 140px; padding: 6px 12px"
+                  id="adminSevFilter"
+                  onchange="loadAdminReports()"
+                >
+                  <option value="">All Severity</option>
+                  <option value="7">Adverse (≥7)</option>
+                  <option value="5">Moderate+</option>
+                </select>
+              </div>
+            </div>
+            <div style="overflow-x: auto">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Patient</th>
+                    <th>Date</th>
+                    <th>Severity</th>
+                    <th>Description</th>
+                    <th>Medications</th>
+                    <th>Submitted By</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="adminReportsBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin: User Management -->
+        <div id="page-admin-users" class="content fade-in hidden">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin-bottom: 24px;
+            "
+          >
+            <div>
+              <h2 style="font-size: 20px; font-weight: 600">User Management</h2>
+              <p style="font-size: 13px; color: var(--muted)">
+                Manage patients, doctors, and admin accounts
+              </p>
+            </div>
+            <button
+              class="btn-sm btn-teal"
+              style="padding: 10px 18px"
+              onclick="openCreateUserModal()"
+            >
+              + Create Account
+            </button>
+          </div>
+          <div style="display: flex; gap: 8px; margin-bottom: 16px">
+            <button
+              class="btn-sm btn-teal"
+              id="filterAll"
+              onclick="loadAdminUsers('all')"
+            >
+              All
+            </button>
+            <button
+              class="btn-sm btn-outline"
+              id="filterPatient"
+              onclick="loadAdminUsers('patient')"
+            >
+              Patients
+            </button>
+            <button
+              class="btn-sm btn-outline"
+              id="filterDoctor"
+              onclick="loadAdminUsers('doctor')"
+            >
+              Doctors
+            </button>
+            <button
+              class="btn-sm btn-outline"
+              id="filterAdmin"
+              onclick="loadAdminUsers('admin')"
+            >
+              Admins
+            </button>
+          </div>
+          <div class="report-table">
+            <div style="overflow-x: auto">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Info</th>
+                    <th>Assigned Doctor</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="adminUsersBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin: Assign Patients to Doctors -->
+        <div id="page-admin-assign" class="content fade-in hidden">
+          <div style="margin-bottom: 24px">
+            <h2 style="font-size: 20px; font-weight: 600">
+              Patient–Doctor Assignment
+            </h2>
+            <p style="font-size: 13px; color: var(--muted)">
+              Allocate patients to physicians
+            </p>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px">
+            <div class="card">
+              <div class="card-header"><h3>Assign Patient to Doctor</h3></div>
+              <div class="form-group">
+                <label>Select Patient</label>
+                <select class="inp" id="assignPatientSel">
+                  <option value="">Choose patient...</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Assign to Doctor</label>
+                <select class="inp" id="assignDoctorSel">
+                  <option value="">Choose doctor...</option>
+                </select>
+              </div>
+              <button class="btn-full" onclick="doAssign()">
+                Assign Patient
+              </button>
+            </div>
+            <div class="card">
+              <div class="card-header"><h3>Unassigned Patients</h3></div>
+              <div id="unassignedPatientsList">
+                <p style="color: var(--muted); font-size: 13px">Loading...</p>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="margin-top: 20px">
+            <div class="card-header"><h3>Current Assignments</h3></div>
+            <div id="assignmentsList"></div>
+          </div>
+        </div>
+
+        <!-- Admin: Export -->
+        <div id="page-admin-export" class="content fade-in hidden">
+          <div style="max-width: 600px">
+            <div style="margin-bottom: 20px">
+              <h2 style="font-size: 20px; font-weight: 600">
+                Export Data to CSV
+              </h2>
+              <p style="font-size: 13px; color: var(--muted)">
+                Send collected data to pharmaceutical company
+              </p>
+            </div>
+            <div class="card">
+              <div class="form-group">
+                <label>Date From</label
+                ><input type="date" id="exportFrom" class="inp" />
+              </div>
+              <div class="form-group">
+                <label>Date To</label
+                ><input type="date" id="exportTo" class="inp" />
+              </div>
+              <div class="form-group">
+                <label>Minimum Severity</label
+                ><select class="inp" id="exportSev">
+                  <option value="">All</option>
+                  <option value="7">Adverse (≥7)</option>
+                  <option value="5">Moderate+ (≥5)</option>
+                  <option value="1">All (≥1)</option>
+                </select>
+              </div>
+              <button class="btn-full" onclick="exportCSV()">
+                ⬇ Download CSV
+              </button>
+              <p
+                style="
+                  font-size: 12px;
+                  color: var(--muted);
+                  margin-top: 12px;
+                  line-height: 1.6;
+                "
+              >
+                The CSV includes: Report ID, Patient demographics, Symptom date,
+                Severity, Description, Medications, AI advice, Clinical notes
+                count, and submission metadata. Suitable for pharmaceutical
+                safety reporting.
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ── MODALS ── -->
+    <!-- Report Detail Modal -->
+    <div
+      id="reportDetailModal"
+      class="modal-overlay hidden"
+      onclick="if (event.target === this) closeModal('reportDetailModal');"
+    >
+      <div class="modal">
+        <button class="modal-close" onclick="closeModal('reportDetailModal')">
+          ✕
+        </button>
+        <h3>Report Details</h3>
+        <div id="reportDetailContent"></div>
+      </div>
+    </div>
+
+    <!-- Create User Modal (Admin) -->
+    <div
+      id="createUserModal"
+      class="modal-overlay hidden"
+      onclick="if (event.target === this) closeModal('createUserModal');"
+    >
+      <div class="modal">
+        <button class="modal-close" onclick="closeModal('createUserModal')">
+          ✕
+        </button>
+        <h3>Create New Account</h3>
+        <div id="createUserError" class="error-msg hidden"></div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name *</label
+            ><input class="inp" id="cuFirst" placeholder="First name" />
+          </div>
+          <div class="form-group">
+            <label>Last Name *</label
+            ><input class="inp" id="cuLast" placeholder="Last name" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email *</label
+          ><input
+            class="inp"
+            type="email"
+            id="cuEmail"
+            placeholder="email@example.com"
+          />
+        </div>
+        <div class="form-group">
+          <label>Password *</label
+          ><input
+            class="inp"
+            type="password"
+            id="cuPassword"
+            placeholder="Min. 6 characters"
+          />
+        </div>
+        <div class="form-group">
+          <label>Role *</label>
+          <select class="inp" id="cuRole" onchange="toggleDoctorFields()">
+            <option value="patient">Patient</option>
+            <option value="doctor">Doctor</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <div id="doctorFields" style="display: none">
+          <div class="form-group">
+            <label>Specialty</label
+            ><input
+              class="inp"
+              id="cuSpecialty"
+              placeholder="e.g. General Physician"
+            />
+          </div>
+        </div>
+        <div id="patientFields">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Age</label
+              ><input class="inp" type="number" id="cuAge" placeholder="30" />
+            </div>
+            <div class="form-group">
+              <label>Gender</label
+              ><select class="inp" id="cuGender">
+                <option value="">Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <button class="btn-full" onclick="createUser()">Create Account</button>
+      </div>
+    </div>
+
+    <!-- Clinical Note Modal -->
+    <div
+      id="clinicalNoteModal"
+      class="modal-overlay hidden"
+      onclick="if (event.target === this) closeModal('clinicalNoteModal');"
+    >
+      <div class="modal">
+        <button class="modal-close" onclick="closeModal('clinicalNoteModal')">
+          ✕
+        </button>
+        <h3>Add Clinical Note</h3>
+        <input type="hidden" id="clinicalNoteReportId" />
+        <div class="form-group">
+          <label>Clinical Note *</label
+          ><textarea
+            class="textarea"
+            id="clinicalNoteText"
+            placeholder="Enter your clinical observations, diagnosis, and recommendations..."
+          ></textarea>
+        </div>
+        <button class="btn-full" onclick="saveClinicalNote()">Save Note</button>
+      </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+      // ══════════════════════════════════════════════════════════════════
+      //  CONFIGURATION
+      // ══════════════════════════════════════════════════════════════════
+      const API = "http://localhost:5000/api"; // change to your deployed URL in production
+
+      // ══════════════════════════════════════════════════════════════════
+      //  STATE
+      // ══════════════════════════════════════════════════════════════════
+      let currentUser = null;
+      let authToken = null;
+      let chatHistory = [];
+      let doctorReports = [];
+      let adminCurrentUserFilter = "all";
+
+      // ══════════════════════════════════════════════════════════════════
+      //  API HELPERS
+      // ══════════════════════════════════════════════════════════════════
+      async function apiFetch(path, options = {}) {
+        const headers = {
+          "Content-Type": "application/json",
+          ...(options.headers || {}),
+        };
+        if (authToken) headers["Authorization"] = `Bearer ${authToken}`;
+        const res = await fetch(`${API}${path}`, { ...options, headers });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.message || `Error ${res.status}`);
+        return data;
+      }
+
+      // ══════════════════════════════════════════════════════════════════
+      //  AUTH
+      // ══════════════════════════════════════════════════════════════════
+      async function doLogin() {
+        const email = document.getElementById("loginEmail").value.trim();
+        const pass = document.getElementById("loginPassword").value;
+        const errEl = document.getElementById("loginError");
+        const btn = document.getElementById("loginBtn");
+
+        if (!email || !pass) {
+          showError("loginError", "Email and password are required.");
+          return;
+        }
+
+        btn.innerHTML = '<span class="spinner"></span> Signing in...';
+        btn.disabled = true;
+
+        try {
+          const data = await apiFetch("/auth/login", {
+            method: "POST",
+            body: JSON.stringify({ email, password: pass }),
+          });
+          authToken = data.token;
+          currentUser = data.user;
+          localStorage.setItem("hf_token", authToken);
+          errEl.classList.add("hidden");
+          initApp();
+        } catch (err) {
+          showError("loginError", err.message);
+        } finally {
+          btn.innerHTML = "Sign In";
+          btn.disabled = false;
+        }
+      }
+
+      async function doSignup() {
+        const firstName = document.getElementById("signupFirst").value.trim();
+        const lastName = document.getElementById("signupLast").value.trim();
+        const email = document.getElementById("signupEmail").value.trim();
+        const password = document.getElementById("signupPass").value;
+        const age = document.getElementById("signupAge").value;
+        const gender = document.getElementById("signupGender").value;
+        const btn = document.getElementById("signupBtn");
+
+        if (!firstName || !lastName || !email || !password) {
+          showError("signupError", "Please fill all required fields.");
+          return;
+        }
+
+        btn.innerHTML = '<span class="spinner"></span> Creating...';
+        btn.disabled = true;
+
+        try {
+          const data = await apiFetch("/auth/register", {
+            method: "POST",
+            body: JSON.stringify({
+              firstName,
+              lastName,
+              email,
+              password,
+              age: age ? parseInt(age) : undefined,
+              gender,
+            }),
+          });
+          authToken = data.token;
+          currentUser = data.user;
+          localStorage.setItem("hf_token", authToken);
+          initApp();
+        } catch (err) {
+          showError("signupError", err.message);
+        } finally {
+          btn.innerHTML = "Create Account";
+          btn.disabled = false;
+        }
+      }
+
+      async function doLogout() {
+        authToken = null;
+        currentUser = null;
+        chatHistory = [];
+        localStorage.removeItem("hf_token");
+        document.getElementById("appPage").classList.add("hidden");
+        document.getElementById("loginPage").classList.remove("hidden");
+        document.getElementById("signupPage").classList.add("hidden");
+      }
+
+      async function autoLogin() {
+        const token = localStorage.getItem("hf_token");
+        if (!token) return;
+        try {
+          authToken = token;
+          const data = await apiFetch("/auth/me");
+          currentUser = data.user;
+          initApp();
+        } catch {
+          localStorage.removeItem("hf_token");
+          authToken = null;
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════════════
+      //  APP INIT & NAVIGATION
+      // ══════════════════════════════════════════════════════════════════
+      function initApp() {
+        document.getElementById("loginPage").classList.add("hidden");
+        document.getElementById("signupPage").classList.add("hidden");
+        document.getElementById("appPage").classList.remove("hidden");
+
+        const u = currentUser;
+        const initials = (
+          (u.firstName?.[0] || "") + (u.lastName?.[0] || "")
+        ).toUpperCase();
+        document.getElementById("userAvatar").textContent = initials;
+        document.getElementById("topbarAvatar").textContent = initials;
+        document.getElementById("userName").textContent =
+          `${u.firstName} ${u.lastName}`;
+        document.getElementById("userRoleLabel").textContent = u.role;
+
+        // Role badge
+        const rb = document.getElementById("roleBadge");
+        rb.className = `role-badge rb-${u.role}`;
+        rb.textContent = u.role.charAt(0).toUpperCase() + u.role.slice(1);
+
+        buildSidebar(u.role);
+
+        if (u.role === "patient") {
+          navTo("dashboard");
+        } else if (u.role === "doctor") {
+          navTo("doc-dashboard");
+        } else if (u.role === "admin") {
+          navTo("admin-dashboard");
+        }
+      }
+
+      const NAV_CONFIG = {
+        patient: [
+          {
+            id: "dashboard",
+            label: "Dashboard",
+            icon: "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z",
+          },
+          {
+            id: "symptoms",
+            label: "Report Symptoms",
+            icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2",
+          },
+          {
+            id: "my-reports",
+            label: "My Reports",
+            icon: "M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414A1 1 0 0120 9.414V19a2 2 0 01-2 2z",
+          },
+          {
+            id: "chatbot",
+            label: "AI Assistant",
+            icon: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z",
+          },
+        ],
+        doctor: [
+          {
+            id: "doc-dashboard",
+            label: "Dashboard",
+            icon: "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z",
+          },
+          {
+            id: "doc-reports",
+            label: "Patient Reports",
+            icon: "M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414A1 1 0 0120 9.414V19a2 2 0 01-2 2z",
+          },
+          {
+            id: "doc-patients",
+            label: "My Patients",
+            icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
+          },
+          {
+            id: "doc-submit",
+            label: "Submit for Patient",
+            icon: "M12 4v16m8-8H4",
+          },
+        ],
+        admin: [
+          {
+            id: "admin-dashboard",
+            label: "Dashboard",
+            icon: "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z",
+          },
+          {
+            id: "admin-reports",
+            label: "All Reports",
+            icon: "M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414A1 1 0 0120 9.414V19a2 2 0 01-2 2z",
+          },
+          {
+            id: "admin-users",
+            label: "User Management",
+            icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
+          },
+          {
+            id: "admin-assign",
+            label: "Assign Patients",
+            icon: "M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4",
+          },
+          {
+            id: "admin-export",
+            label: "Export CSV",
+            icon: "M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414A1 1 0 0120 9.414V19a2 2 0 01-2 2z",
+          },
+        ],
+      };
+
+      function buildSidebar(role) {
+        const nav = document.getElementById("sidebarNav");
+        nav.innerHTML = NAV_CONFIG[role]
+          .map(
+            (item) =>
+              `<div class="nav-item" id="nav-${item.id}" onclick="navTo('${item.id}')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${item.icon}"/></svg>
+      ${item.label}
+    </div>`,
+          )
+          .join("");
+      }
+
+      const PAGE_TITLES = {
+        dashboard: ["Dashboard", "Your health overview"],
+        symptoms: ["Report Symptoms", "Share symptoms for AI analysis"],
+        "my-reports": ["My Reports", "Your full report history"],
+        chatbot: ["AI Assistant", "Ask about medications & health"],
+        "doc-dashboard": ["Doctor Dashboard", "Your patients overview"],
+        "doc-reports": ["Patient Reports", "All reports from your patients"],
+        "doc-patients": ["My Patients", "Patients assigned to you"],
+        "doc-submit": [
+          "Submit Report",
+          "Submit a report on behalf of a patient",
+        ],
+        "admin-dashboard": ["Admin Dashboard", "System overview"],
+        "admin-reports": ["All Reports", "Full system report database"],
+        "admin-users": ["User Management", "Manage all accounts"],
+        "admin-assign": ["Patient Assignment", "Allocate patients to doctors"],
+        "admin-export": ["Export CSV", "Download data for pharma company"],
+      };
+
+      function navTo(pageId) {
+        document
+          .querySelectorAll('[id^="page-"]')
+          .forEach((p) => p.classList.add("hidden"));
+        document
+          .querySelectorAll(".nav-item")
+          .forEach((n) => n.classList.remove("active"));
+
+        const page = document.getElementById(`page-${pageId}`);
+        if (page) {
+          page.classList.remove("hidden");
+          page.classList.add("fade-in");
+        }
+
+        const navItem = document.getElementById(`nav-${pageId}`);
+        if (navItem) navItem.classList.add("active");
+
+        const [title, sub] = PAGE_TITLES[pageId] || ["HealthFlow", ""];
+        document.getElementById("topbarTitle").textContent = title;
+        document.getElementById("topbarSub").textContent = sub;
+
+        // Load data for page
+        if (pageId === "dashboard") loadPatientDashboard();
+        if (pageId === "my-reports") loadMyReports();
+        if (pageId === "symptoms") loadPatientMeds();
+        if (pageId === "chatbot") loadChatMeds();
+        if (pageId === "doc-dashboard") loadDoctorDashboard();
+        if (pageId === "doc-reports") loadDoctorReports();
+        if (pageId === "doc-patients") loadDoctorPatients();
+        if (pageId === "doc-submit") loadDocSubmitPage();
+        if (pageId === "admin-dashboard") loadAdminDashboard();
+        if (pageId === "admin-reports") loadAdminReports();
+        if (pageId === "admin-users") loadAdminUsers("all");
+        if (pageId === "admin-assign") loadAssignPage();
+      }
+
+      // ══════════════════════════════════════════════════════════════════
+      //  PATIENT: DASHBOARD
+      // ══════════════════════════════════════════════════════════════════
+      async function loadPatientDashboard() {
+        try {
+          const { reports } = await apiFetch("/reports/my");
+          const user = currentUser;
+          const meds = user.medications || [];
+
+          const now = new Date();
+          const weekReports = reports.filter(
+            (r) => now - new Date(r.createdAt) < 7 * 24 * 60 * 60 * 1000,
+          );
+
+          document.getElementById("statMyReports").textContent = reports.length;
+          document.getElementById("statWeekReports").textContent =
+            weekReports.length;
+          document.getElementById("statMeds").textContent = meds.length;
+
+          // Re-fetch to get doctor name
+          const me = await apiFetch("/auth/me");
+          currentUser = me.user;
+          const doc = currentUser.assignedDoctor;
+          document.getElementById("statDoctor").textContent = doc
+            ? `Dr. ${doc.firstName}`
+            : "—";
+
+          // Recent reports
+          const container = document.getElementById("dashRecentReports");
+          if (!reports.length) {
+            container.innerHTML = `<div class="empty-state"><div class="icon">📋</div><p>No reports yet. <span style="color:var(--teal);cursor:pointer" onclick="navTo('symptoms')">Submit your first report</span></p></div>`;
+          } else {
+            container.innerHTML = reports
+              .slice(0, 3)
+              .map((r) => reportRowHtml(r))
+              .join("");
+          }
+
+          // Medications
+          const medContainer = document.getElementById("dashMedList");
+          if (!meds.length) {
+            medContainer.innerHTML =
+              '<p style="color:var(--muted);font-size:13px">No medications on file.</p>';
+          } else {
+            medContainer.innerHTML = meds
+              .map(
+                (m, i) => `
+        <div class="med-item">
+          <div class="med-dot" style="background:${["var(--teal)", "var(--blue)", "var(--amber)", "var(--purple)"][i % 4]}"></div>
+          <div><div style="font-size:13px;font-weight:500">${m.name}</div><div style="font-size:11px;color:var(--muted)">${m.dosage} · ${m.frequency}</div></div>
+        </div>`,
+              )
+              .join("");
+          }
+        } catch (err) {
+          showToast(err.message, "err");
+        }
+      }
+
+      function reportRowHtml(r) {
+        const sev =
+          r.severity >= 8
+            ? "badge-red"
+            : r.severity >= 5
+              ? "badge-amber"
+              : "badge-green";
+        const name = r.patient
+          ? `${r.patient.firstName} ${r.patient.lastName}`
+          : "";
+        return `<div class="report-card" onclick="openReportDetail('${r._id}')">
+    <div class="report-meta">
+      <span class="card-badge ${sev}">Severity ${r.severity}/10</span>
+      <span class="card-badge badge-teal">${fmtDate(r.symptomDate)}</span>
+      ${r.submittedByRole === "doctor" ? '<span class="card-badge badge-blue">By Doctor</span>' : ""}
+      ${name ? `<span style="font-size:11px;color:var(--muted);margin-left:auto">${name}</span>` : ""}
+    </div>
+    <p style="font-size:14px;font-weight:500">${r.description.substring(0, 100)}${r.description.length > 100 ? "..." : ""}</p>
+    ${r.medications?.length ? `<p style="font-size:12px;color:var(--muted)">Meds: ${r.medications.join(", ")}</p>` : ""}
+  </div>`;
+      }
+
+      // ══════════════════════════════════════════════════════════════════
+      //  PATIENT: MEDICATIONS
+      // ══════════════════════════════════════════════════════════════════
+      function loadPatientMeds() {
+        const meds = currentUser.medications || [];
+        const checkboxes = meds.length
+          ? meds
+              .map(
+                (m) =>
+                  `<label class="check-item"><input type="checkbox" value="${m.name}"> ${m.name} <span style="font-size:11px;color:var(--muted)">(${m.dosage})</span></label>`,
+              )
+              .join("")
+          : '<p style="color:var(--muted);font-size:13px;grid-column:span 2">No medications on record.</p>';
+        document.getElementById("medCheckboxes").innerHTML = checkboxes;
+
+        const list = meds.length
+          ? meds
+              .map(
+                (m, i) =>
+                  `<div style="font-size:13px;padding:8px 10px;background:#F0FDFA;border-radius:8px;margin-bottom:6px;font-weight:500;color:var(--teal-dark)">${m.name} <span style="font-weight:400;color:var(--muted);font-size:11px">· ${m.dosage} ${m.frequency}</span></div>`,
+              )
+              .join("")
+          : '<p style="font-size:13px;color:var(--muted)">No medications.</p>';
+        document.getElementById("symptomsPageMedList").innerHTML = list;
+
+        // Follow-up select
+        apiFetch("/reports/my")
+          .then(({ reports }) => {
+            const sel = document.getElementById("followUpSelect");
+            sel.innerHTML =
+              '<option value="">No — new report</option>' +
+              reports
+                .slice(0, 20)
+                .map(
+                  (r) =>
+                    `<option value="${r._id}">${fmtDate(r.symptomDate)} — Severity ${r.severity} — ${r.description.substring(0, 40)}...</option>`,
+                )
+                .join("");
+          })
+          .catch(() => {});
+      }
+
+      function loadChatMeds() {
+        const meds = currentUser.medications || [];
+        document.getElementById("chatMedList").innerHTML = meds.length
+          ? meds
+              .map(
+                (m) =>
+                  `<div style="font-size:13px;padding:7px 10px;background:#F0FDFA;border-radius:7px;margin-bottom:5px;font-weight:500;color:var(--teal-dark)">${m.name}<span style="font-weight:400;color:var(--muted);font-size:11px"> · ${m.dosage}</span></div>`,
+              )
+              .join("")
+          : '<p style="font-size:13px;color:var(--muted)">No medications on record.</p>';
+      }
+
+      // ══════════════════════════════════════════════════════════════════
+      //  PATIENT: SUBMIT REPORT
+      // ══════════════════════════════════════════════════════════════════
+      async function submitSymptomReport() {
+        const desc = document.getElementById("symptomDesc").value.trim();
+        const severity = document.getElementById("severitySlider").value;
+        const date = document.getElementById("symptomDate").value;
+        const notes = document.getElementById("addNotes").value.trim();
+        const followUp = document.getElementById("followUpSelect").value;
+        const btn = document.getElementById("submitReportBtn");
+
+        if (!desc) {
+          showToast("Please describe your symptoms", "err");
+          return;
+        }
+        if (!date) {
+          showToast("Please select symptom date", "err");
+          return;
+        }
+
+        const meds = [];
+        document
+          .querySelectorAll("#medCheckboxes input:checked")
+          .forEach((c) => meds.push(c.value));
+
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span> Analysing...';
+
+        const analysisBox = document.getElementById("aiAnalysisBox");
+        const analysisText = document.getElementById("aiAnalysisText");
+        analysisBox.classList.remove("hidden");
+        analysisText.textContent = "Getting AI analysis...";
+
+        // Get AI advice first
+        let aiAdvice = "";
+        try {
+          const prompt = `You are a medical AI for a pharmaceutical safety tracking system.
+Patient: ${currentUser.age || "?"} year old ${currentUser.gender || "patient"}
+Medications: ${meds.join(", ") || "Not specified"}
+Symptoms: ${desc}
+Severity: ${severity}/10 (${severity <= 3 ? "Mild" : severity <= 6 ? "Moderate" : "Severe"})
+Date started: ${date}
+Notes: ${notes || "None"}
+
+Provide concise medical analysis:
+1. Possible causes (especially drug-related)
+2. Home remedies and relief
+3. Warning signs needing urgent care
+4. Whether these are known medication side effects
+5. Next steps advice`;
+
+          const data = await apiFetch("/ai/analyze", {
+            method: "POST",
+            body: JSON.stringify({
+              history: [
+                {
+                  role: "user",
+                  content: prompt,
+                },
+              ],
+              systemPrompt:
+                "You are a medical assistant. Give safe, short, and helpful advice.",
+            }),
+          });
+
+          const reply = data.reply;
+
+          aiAdvice = text;
+          analysisText.textContent = text;
+
+          data = await res.json();
+          reply = data.reply;
+        } catch {
+          aiAdvice = generateFallbackAdvice(desc, parseInt(severity), meds);
+          analysisText.textContent = aiAdvice;
+        }
+
+        // Save report to backend
+        try {
+          await apiFetch("/reports", {
+            method: "POST",
+            body: JSON.stringify({
+              description: desc,
+              severity: parseInt(severity),
+              symptomDate: date,
+              medications: meds,
+              notes,
+              followUpOf: followUp || null,
+              aiAdvice,
+            }),
+          });
+          showToast("Report submitted successfully ✓", "success");
+          document.getElementById("symptomDesc").value = "";
+          document.getElementById("addNotes").value = "";
+          document
+            .querySelectorAll("#medCheckboxes input")
+            .forEach((c) => (c.checked = false));
+        } catch (err) {
+          showToast("Report saved locally only: " + err.message, "err");
+        }
+
+        btn.disabled = false;
+        btn.innerHTML = "Submit & Get AI Analysis";
+      }
+
+      function generateFallbackAdvice(desc, severity, meds) {
+        const d = desc.toLowerCase();
+        let a = "";
+        if (d.includes("headache"))
+          a +=
+            "Headaches can be a side effect of blood pressure medications like Lisinopril. ";
+        if (d.includes("nausea"))
+          a +=
+            "Nausea is common with Metformin — taking it with food may help. ";
+        if (d.includes("dizz"))
+          a +=
+            "Dizziness may indicate blood pressure changes — sit down immediately. ";
+        a +=
+          severity >= 8
+            ? "HIGH severity: Contact your doctor immediately."
+            : severity >= 5
+              ? "Moderate: Monitor symptoms and contact doctor if they worsen."
+              : "Mild: Rest and hydration recommended.";
+        return a;
+      }
+
+      // ══════════════════════════════════════════════════════════════════
+      //  PATIENT: MY REPORTS
+      // ══════════════════════════════════════════════════════════════════
+      async function loadMyReports() {
+        const container = document.getElementById("patientReportsList");
+        container.innerHTML = '<p style="color:var(--muted)">Loading...</p>';
+        try {
+          const { reports } = await apiFetch("/reports/my");
+          if (!reports.length) {
+            container.innerHTML = `<div class="empty-state"><div class="icon">📋</div><p style="font-size:15px;font-weight:500">No reports yet</p><button class="btn-sm btn-teal" style="margin-top:12px;padding:10px 20px" onclick="navTo('symptoms')">Submit First Report</button></div>`;
+            return;
+          }
+          container.innerHTML = reports
+            .map((r) => {
+              const sev =
+                r.severity >= 8
+                  ? "badge-red"
+                  : r.severity >= 5
+                    ? "badge-amber"
+                    : "badge-green";
+              return `<div class="report-card" onclick="openReportDetail('${r._id}')">
+        <div class="report-meta">
+          <span class="card-badge ${sev}">Severity ${r.severity}/10</span>
+          <span class="card-badge badge-teal">${fmtDate(r.symptomDate)}</span>
+          ${r.followUpOf ? '<span class="card-badge badge-blue">Follow-up</span>' : ""}
+          ${r.submittedByRole === "doctor" ? '<span class="card-badge badge-purple">Submitted by Doctor</span>' : ""}
+          <span class="card-badge ${r.status === "reviewed" ? "badge-green" : r.status === "closed" ? "badge-gray" : "badge-amber"}">${r.status}</span>
+        </div>
+        <p style="font-size:14px;font-weight:500;margin-bottom:4px">${r.description.substring(0, 120)}${r.description.length > 120 ? "..." : ""}</p>
+        ${r.medications?.length ? `<p style="font-size:12px;color:var(--muted)">Medications: ${r.medications.join(", ")}</p>` : ""}
+        ${r.clinicalNotes?.length ? `<p style="font-size:12px;color:var(--green);margin-top:4px">✓ Doctor has reviewed this report</p>` : ""}
+      </div>`;
+            })
+            .join("");
+        } catch (err) {
+          container.innerHTML = `<p style="color:var(--red)">${err.message}</p>`;
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════════════
+      //  REPORT DETAIL MODAL
+      // ══════════════════════════════════════════════════════════════════
+      async function openReportDetail(id) {
+        openModal("reportDetailModal");
+        document.getElementById("reportDetailContent").innerHTML =
+          '<p style="color:var(--muted)">Loading...</p>';
+        try {
+          const { report: r } = await apiFetch(`/reports/${id}`);
+          const sev =
+            r.severity >= 8
+              ? "badge-red"
+              : r.severity >= 5
+                ? "badge-amber"
+                : "badge-green";
+          const isDoctor = currentUser.role === "doctor";
+
+          let html = `
+      <div class="report-meta" style="margin-bottom:16px">
+        <span class="card-badge ${sev}">Severity ${r.severity}/10</span>
+        <span class="card-badge badge-teal">${fmtDate(r.symptomDate)}</span>
+        <span class="card-badge ${r.status === "reviewed" ? "badge-green" : r.status === "closed" ? "badge-gray" : "badge-amber"}">${r.status}</span>
+      </div>
+      <div class="info-row"><span class="info-label">Patient</span><span>${r.patient?.firstName} ${r.patient?.lastName} (${r.patient?.age}y, ${r.patient?.gender})</span></div>
+      <div class="info-row"><span class="info-label">Submitted By</span><span>${r.submittedBy?.firstName} ${r.submittedBy?.lastName} (${r.submittedByRole})</span></div>
+      <div class="info-row"><span class="info-label">Medications</span><span>${r.medications?.join(", ") || "None"}</span></div>
+      <div class="info-row"><span class="info-label">Submitted At</span><span>${fmtDateTime(r.createdAt)}</span></div>
+      <hr class="divider">
+      <p style="font-size:14px;font-weight:600;margin-bottom:8px">Symptoms</p>
+      <p style="font-size:13px;line-height:1.7;color:#374151">${r.description}</p>
+      ${r.notes ? `<p style="font-size:13px;color:var(--muted);margin-top:8px"><strong>Notes:</strong> ${r.notes}</p>` : ""}`;
+
+          if (r.aiAdvice) {
+            html += `<hr class="divider"><div class="advice-box"><strong style="display:block;margin-bottom:6px">🤖 AI Analysis</strong>${r.aiAdvice}</div>`;
+          }
+
+          if (r.clinicalNotes?.length) {
+            html += `<hr class="divider"><p style="font-size:14px;font-weight:600;margin-bottom:8px">Clinical Notes</p>`;
+            html += r.clinicalNotes
+              .map(
+                (n) =>
+                  `<div class="clinical-note"><div class="note-meta">Dr. ${n.doctor?.firstName} ${n.doctor?.lastName} · ${fmtDateTime(n.createdAt)}</div>${n.note}</div>`,
+              )
+              .join("");
+          }
+
+          if (r.dispensedDrugs?.length) {
+            html += `<hr class="divider"><p style="font-size:14px;font-weight:600;margin-bottom:8px">Dispensed Drugs</p>`;
+            html += r.dispensedDrugs
+              .map(
+                (d) =>
+                  `<div class="drug-tag">${d.name} ${d.dosage} · ${d.quantity}</div>`,
+              )
+              .join("");
+          }
+
+          if (isDoctor) {
+            html += `<hr class="divider"><div style="display:flex;gap:8px">
+        <button class="btn-sm btn-teal" style="flex:1" onclick="closeModal('reportDetailModal');openClinicalNoteModal('${r._id}')">Add Clinical Note</button>
+      </div>`;
+          }
+
+          document.getElementById("reportDetailContent").innerHTML = html;
+        } catch (err) {
+          document.getElementById("reportDetailContent").innerHTML =
+            `<p style="color:var(--red)">${err.message}</p>`;
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════════════
+      //  CHATBOT
+      // ══════════════════════════════════════════════════════════════════
+      async function sendChat() {
+        const input = document.getElementById("chatInput");
+        const msg = input.value.trim();
+
+        if (!msg) return;
+
+        input.value = "";
+
+        addChatMessage("user", msg);
+
+        await getBotResponse(msg);
+      }
+
+      function askQuestion(q) {
+        document.getElementById("chatInput").value = q;
+        sendChat();
+      }
+
+      function addChatMessage(sender, message) {
+        const chatBox = document.getElementById("chatMessages");
+
+        const msgDiv = document.createElement("div");
+        msgDiv.className = sender === "user" ? "msg user" : "msg bot";
+
+        msgDiv.innerHTML = `<div class="msg-bubble">${message}</div>`;
+
+        chatBox.appendChild(msgDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+
+      function showTyping() {
+        const c = document.getElementById("chatMessages");
+        const div = document.createElement("div");
+        div.className = "msg bot";
+        div.id = "typingIndicator";
+        div.innerHTML =
+          '<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+        c.appendChild(div);
+        c.scrollTop = c.scrollHeight;
+      }
+
+      async function getBotResponse(msg) {
+        const chatBox = document.getElementById("chatMessages");
+
+        // Show typing indicator
+        const typing = document.createElement("div");
+        typing.id = "typing";
+        typing.className = "msg bot";
+        typing.innerHTML = `<div class="msg-bubble">Typing...</div>`;
+        chatBox.appendChild(typing);
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        // Add user message to history BEFORE sending so AI has full context
+        chatHistory.push({ role: "user", content: msg });
+
+        let reply = "";
+
+        try {
+          // ✅ Call the real AI backend with full conversation history
+          const res = await fetch(`${API}/ai/analyze`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
+            },
+            body: JSON.stringify({ history: chatHistory }),
+          });
+
+          const data = await res.json().catch(() => ({}));
+
+          if (!res.ok) {
+            // Show the actual error from the server so we can debug
+            reply = `⚠️ ${data?.reply || "AI service error (HTTP " + res.status + ")"}`;
+            chatHistory.pop();
+          } else {
+            reply =
+              data?.reply ||
+              "Sorry, I could not get a response. Please try again.";
+          }
+        } catch (err) {
+          console.error("AI chat error:", err);
+          // Show real error — not a generic message — so user/dev can see what's wrong
+          reply = `⚠️ Could not reach AI: ${err.message}`;
+          chatHistory.pop();
+        }
+
+        // Remove typing indicator
+        document.getElementById("typing")?.remove();
+
+        addChatMessage("bot", reply);
+
+        // Add assistant reply to history
+        chatHistory.push({ role: "assistant", content: reply });
+      }
+
+      // ✅ ENTER KEY SUPPORT
+      document
+        .getElementById("chatInput")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            sendChat();
+          }
+        });
+
+      // ══════════════════════════════════════════════════════════════════
+      //  DOCTOR: DASHBOARD
+      // ══════════════════════════════════════════════════════════════════
+      async function loadDoctorDashboard() {
+        try {
+          const { reports } = await apiFetch("/reports/assigned");
+          doctorReports = reports;
+          const adverse = reports.filter((r) => r.severity >= 7);
+          const reviewed = reports.filter((r) => r.status === "reviewed");
+          const patients = new Set(reports.map((r) => r.patient?._id)).size;
+
+          document.getElementById("docStatPatients").textContent = patients;
+          document.getElementById("docStatReports").textContent =
+            reports.length;
+          document.getElementById("docStatAdverse").textContent =
+            adverse.length;
+          document.getElementById("docStatReviewed").textContent =
+            reviewed.length;
+
+          const container = document.getElementById("docDashRecentReports");
+          container.innerHTML = reports.length
+            ? reports
+                .slice(0, 5)
+                .map((r) => reportRowHtml(r))
+                .join("")
+            : '<div class="empty-state"><div class="icon">📋</div><p>No reports from your patients yet.</p></div>';
+        } catch (err) {
+          showToast(err.message, "err");
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════════════
+      //  DOCTOR: REPORTS LIST
+      // ══════════════════════════════════════════════════════════════════
+      async function loadDoctorReports() {
+        const container = document.getElementById("docReportsList");
+        container.innerHTML = '<p style="color:var(--muted)">Loading...</p>';
+        const filter = document.getElementById("docReportFilter").value;
+
+        try {
+          const { reports } = await apiFetch("/reports/assigned");
+          let filtered = reports;
+          if (filter === "high")
+            filtered = reports.filter((r) => r.severity >= 7);
+          else if (filter === "med")
+            filtered = reports.filter((r) => r.severity >= 4 && r.severity < 7);
+          else if (filter === "low")
+            filtered = reports.filter((r) => r.severity < 4);
+
+          if (!filtered.length) {
+            container.innerHTML =
+              '<div class="empty-state"><div class="icon">📋</div><p>No reports found.</p></div>';
+            return;
+          }
+
+          container.innerHTML = filtered
+            .map((r) => {
+              const sev =
+                r.severity >= 8
+                  ? "badge-red"
+                  : r.severity >= 5
+                    ? "badge-amber"
+                    : "badge-green";
+              return `<div class="report-card">
+        <div class="report-meta">
+          <strong style="font-size:13px">${r.patient?.firstName} ${r.patient?.lastName}</strong>
+          <span style="font-size:11px;color:var(--muted)">(${r.patient?.age}y, ${r.patient?.gender})</span>
+          <span class="card-badge ${sev}">Severity ${r.severity}/10</span>
+          <span class="card-badge badge-teal">${fmtDate(r.symptomDate)}</span>
+          <span class="card-badge ${r.status === "reviewed" ? "badge-green" : "badge-amber"}">${r.status}</span>
+        </div>
+        <p style="font-size:14px;margin-bottom:8px">${r.description.substring(0, 120)}...</p>
+        ${r.medications?.length ? `<p style="font-size:12px;color:var(--muted)">Meds: ${r.medications.join(", ")}</p>` : ""}
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn-sm btn-outline" onclick="openReportDetail('${r._id}')">View Full</button>
+          <button class="btn-sm btn-teal" onclick="openClinicalNoteModal('${r._id}')">Add Note</button>
+        </div>
+      </div>`;
+            })
+            .join("");
+        } catch (err) {
+          container.innerHTML = `<p style="color:var(--red)">${err.message}</p>`;
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════════════
+      //  DOCTOR: MY PATIENTS
+      // ══════════════════════════════════════════════════════════════════
+      async function loadDoctorPatients() {
+        const container = document.getElementById("docPatientsList");
+        container.innerHTML = '<p style="color:var(--muted)">Loading...</p>';
+        try {
+          const me = await apiFetch("/auth/me");
+          const patients = me.user.assignedPatients || [];
+          if (!patients.length) {
+            container.innerHTML =
+              '<div class="empty-state"><div class="icon">👥</div><p>No patients assigned to you yet. Contact admin.</p></div>';
+            return;
+          }
+          container.innerHTML = `<div class="report-table"><div style="overflow-x:auto"><table><thead><tr><th>Name</th><th>Age</th><th>Gender</th><th>Email</th><th>Medications</th><th>Actions</th></tr></thead><tbody>
+      ${patients
+        .map(
+          (p) => `<tr>
+        <td><strong>${p.firstName} ${p.lastName}</strong></td>
+        <td>${p.age || "—"}</td>
+        <td>${p.gender || "—"}</td>
+        <td>${p.email}</td>
+        <td>${(p.medications || []).map((m) => m.name).join(", ") || "—"}</td>
+        <td><button class="btn-sm btn-outline" onclick="navTo('doc-reports')">View Reports</button></td>
+      </tr>`,
+        )
+        .join("")}
+    </tbody></table></div></div>`;
+        } catch (err) {
+          container.innerHTML = `<p style="color:var(--red)">${err.message}</p>`;
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════════════
+      //  DOCTOR: SUBMIT REPORT ON BEHALF
+      // ══════════════════════════════════════════════════════════════════
+      async function loadDocSubmitPage() {
+        try {
+          const me = await apiFetch("/auth/me");
+          const patients = me.user.assignedPatients || [];
+          const sel = document.getElementById("docPatientSelect");
+          sel.innerHTML =
+            '<option value="">Choose a patient...</option>' +
+            patients
+              .map(
+                (p) =>
+                  `<option value="${p._id}">${p.firstName} ${p.lastName}</option>`,
+              )
+              .join("");
+          document.getElementById("docSymptomDate").valueAsDate = new Date();
+        } catch {}
+      }
+
+      let drugRowCount = 0;
+      function addDrugRow() {
+        const id = ++drugRowCount;
+        const div = document.createElement("div");
+        div.style.cssText =
+          "display:flex;gap:8px;margin-bottom:8px;align-items:center";
+        div.id = `drugRow${id}`;
+        div.innerHTML = `
+    <input class="inp" style="flex:2" placeholder="Drug name" id="drugName${id}">
+    <input class="inp" style="flex:1" placeholder="Dosage" id="drugDose${id}">
+    <input class="inp" style="flex:1" placeholder="Quantity" id="drugQty${id}">
+    <button class="btn-sm btn-red" onclick="document.getElementById('drugRow${id}').remove()">✕</button>`;
+        document.getElementById("drugDispenseList").appendChild(div);
+      }
+
+      async function docSubmitReport() {
+        const patientId = document.getElementById("docPatientSelect").value;
+        const desc = document.getElementById("docSymptomDesc").value.trim();
+        const severity = document.getElementById("docSeveritySlider").value;
+        const date = document.getElementById("docSymptomDate").value;
+        const clinicalNote = document
+          .getElementById("docClinicalNote")
+          .value.trim();
+        const notes = document.getElementById("docNotes").value.trim();
+        const btn = document.getElementById("docSubmitBtn");
+
+        if (!patientId) {
+          showToast("Please select a patient", "err");
+          return;
+        }
+        if (!desc) {
+          showToast("Please describe symptoms", "err");
+          return;
+        }
+        if (!date) {
+          showToast("Please select symptom date", "err");
+          return;
+        }
+
+        const meds = [];
+        document
+          .querySelectorAll("#docMedCheckboxes input:checked")
+          .forEach((c) => meds.push(c.value));
+
+        // Collect dispensed drugs
+        const dispensedDrugs = [];
+        for (let i = 1; i <= drugRowCount; i++) {
+          const name = document.getElementById(`drugName${i}`)?.value.trim();
+          const dosage = document.getElementById(`drugDose${i}`)?.value.trim();
+          const quantity = document.getElementById(`drugQty${i}`)?.value.trim();
+          if (name)
+            dispensedDrugs.push({
+              name,
+              dosage,
+              quantity,
+              notes: clinicalNote,
+            });
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span> Submitting...';
+
+        try {
+          const { report } = await apiFetch("/reports/on-behalf", {
+            method: "POST",
+            body: JSON.stringify({
+              patientId,
+              description: desc,
+              severity: parseInt(severity),
+              symptomDate: date,
+              medications: meds,
+              notes,
+              dispensedDrugs,
+            }),
+          });
+
+          if (clinicalNote) {
+            await apiFetch(`/reports/${report._id}/clinical-note`, {
+              method: "POST",
+              body: JSON.stringify({ note: clinicalNote }),
+            });
+          }
+
+          showToast("Report submitted successfully ✓", "success");
+          document.getElementById("docSymptomDesc").value = "";
+          document.getElementById("docClinicalNote").value = "";
+          document.getElementById("docNotes").value = "";
+          document.getElementById("drugDispenseList").innerHTML = "";
+          drugRowCount = 0;
+        } catch (err) {
+          showToast(err.message, "err");
+        }
+
+        btn.disabled = false;
+        btn.innerHTML = "Submit Report";
+      }
+
+      // ══════════════════════════════════════════════════════════════════
+      //  CLINICAL NOTE MODAL
+      // ══════════════════════════════════════════════════════════════════
+      function openClinicalNoteModal(reportId) {
+        document.getElementById("clinicalNoteReportId").value = reportId;
+        document.getElementById("clinicalNoteText").value = "";
+        openModal("clinicalNoteModal");
+      }
+
+      async function saveClinicalNote() {
+        const reportId = document.getElementById("clinicalNoteReportId").value;
+        const note = document.getElementById("clinicalNoteText").value.trim();
+        if (!note) {
+          showToast("Please enter a note", "err");
+          return;
+        }
+
+        try {
+          await apiFetch(`/reports/${reportId}/clinical-note`, {
+            method: "POST",
+            body: JSON.stringify({ note }),
+          });
+          closeModal("clinicalNoteModal");
+          showToast("Clinical note saved ✓", "success");
+        } catch (err) {
+          showToast(err.message, "err");
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════════════
+      //  ADMIN: DASHBOARD
+      // ══════════════════════════════════════════════════════════════════
+      async function loadAdminDashboard() {
+        try {
+          const stats = await apiFetch("/admin/stats");
+          document.getElementById("adminStatPatients").textContent =
+            stats.totalPatients;
+          document.getElementById("adminStatDoctors").textContent =
+            stats.totalDoctors;
+          document.getElementById("adminStatReports").textContent =
+            stats.totalReports;
+          document.getElementById("adminStatAdverse").textContent =
+            stats.adverseReports;
+          document.getElementById("adminStatUnassigned").textContent =
+            stats.unassignedPatients;
+
+          const container = document.getElementById("adminRecentReports");
+          container.innerHTML = stats.recentReports?.length
+            ? stats.recentReports.map((r) => reportRowHtml(r)).join("")
+            : '<div class="empty-state"><p>No reports yet.</p></div>';
+        } catch (err) {
+          showToast(err.message, "err");
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════════════
+      //  ADMIN: ALL REPORTS
+      // ══════════════════════════════════════════════════════════════════
+      async function loadAdminReports() {
+        const body = document.getElementById("adminReportsBody");
+        body.innerHTML =
+          '<tr><td colspan="8" style="text-align:center;padding:20px;color:var(--muted)">Loading...</td></tr>';
+        const sev = document.getElementById("adminSevFilter").value;
+
+        try {
+          let url = `/reports?limit=100`;
+          if (sev) url += `&severity=${sev}`;
+          const { reports } = await apiFetch(url);
+
+          if (!reports.length) {
+            body.innerHTML =
+              '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted)">No reports found.</td></tr>';
+            return;
+          }
+
+          body.innerHTML = reports
+            .map((r) => {
+              const sc =
+                r.severity >= 8
+                  ? "badge-red"
+                  : r.severity >= 5
+                    ? "badge-amber"
+                    : "badge-green";
+              return `<tr onclick="openReportDetail('${r._id}')" style="cursor:pointer">
+        <td style="font-family:monospace;font-size:11px">${r._id.slice(-8)}</td>
+        <td><strong>${r.patient?.firstName} ${r.patient?.lastName}</strong><br><span style="font-size:11px;color:var(--muted)">${r.patient?.age}y, ${r.patient?.gender}</span></td>
+        <td>${fmtDate(r.symptomDate)}</td>
+        <td><span class="severity-pill ${sc}">${r.severity}/10</span></td>
+        <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.description}</td>
+        <td>${r.medications?.join(", ") || "—"}</td>
+        <td>${r.submittedBy?.firstName} (${r.submittedByRole})</td>
+        <td><span class="card-badge ${r.status === "reviewed" ? "badge-green" : r.status === "closed" ? "badge-gray" : "badge-amber"}">${r.status}</span></td>
+      </tr>`;
+            })
+            .join("");
+        } catch (err) {
+          body.innerHTML = `<tr><td colspan="8" style="color:var(--red);padding:16px">${err.message}</td></tr>`;
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════════════
+      //  ADMIN: USER MANAGEMENT
+      // ══════════════════════════════════════════════════════════════════
+      async function loadAdminUsers(role) {
+        adminCurrentUserFilter = role;
+        // Highlight active filter button
+        ["All", "Patient", "Doctor", "Admin"].forEach((r) => {
+          const btn = document.getElementById(`filter${r}`);
+          if (btn) {
+            btn.className = `btn-sm ${role === r.toLowerCase() || (role === "all" && r === "All") ? "btn-teal" : "btn-outline"}`;
+          }
+        });
+
+        const body = document.getElementById("adminUsersBody");
+        body.innerHTML =
+          '<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted)">Loading...</td></tr>';
+
+        try {
+          let url = "/admin/users?limit=100";
+          if (role !== "all") url += `&role=${role}`;
+          const { users } = await apiFetch(url);
+
+          if (!users.length) {
+            body.innerHTML =
+              '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--muted)">No users found.</td></tr>';
+            return;
+          }
+
+          body.innerHTML = users
+            .map(
+              (u) => `<tr>
+      <td><strong>${u.firstName} ${u.lastName}</strong></td>
+      <td>${u.email}</td>
+      <td><span class="card-badge ${u.role === "patient" ? "badge-teal" : u.role === "doctor" ? "badge-blue" : "badge-purple"}">${u.role}</span></td>
+      <td>${u.role === "doctor" ? u.specialty || "—" : u.role === "patient" ? `${u.age || "?"}y, ${u.gender || "?"}` : "System Admin"}</td>
+      <td>${u.assignedDoctor ? `Dr. ${u.assignedDoctor.firstName} ${u.assignedDoctor.lastName}` : u.role === "patient" ? '<span style="color:var(--amber)">Unassigned</span>' : "—"}</td>
+      <td><span class="card-badge ${u.isActive ? "badge-green" : "badge-red"}">${u.isActive ? "Active" : "Inactive"}</span></td>
+      <td><button class="btn-sm ${u.isActive ? "btn-red" : "btn-teal"}" onclick="toggleUserActive('${u._id}',${!u.isActive})">${u.isActive ? "Deactivate" : "Activate"}</button></td>
+    </tr>`,
+            )
+            .join("");
+        } catch (err) {
+          body.innerHTML = `<tr><td colspan="7" style="color:var(--red);padding:16px">${err.message}</td></tr>`;
+        }
+      }
+
+      async function toggleUserActive(id) {
+        try {
+          const { message } = await apiFetch(
+            `/admin/users/${id}/toggle-active`,
+            { method: "PATCH" },
+          );
+          showToast(message, "success");
+          loadAdminUsers(adminCurrentUserFilter);
+        } catch (err) {
+          showToast(err.message, "err");
+        }
+      }
+
+      function openCreateUserModal() {
+        document.getElementById("cuFirst").value = "";
+        document.getElementById("cuLast").value = "";
+        document.getElementById("cuEmail").value = "";
+        document.getElementById("cuPassword").value = "";
+        document.getElementById("cuRole").value = "patient";
+        toggleDoctorFields();
+        openModal("createUserModal");
+      }
+
+      function toggleDoctorFields() {
+        const role = document.getElementById("cuRole").value;
+        document.getElementById("doctorFields").style.display =
+          role === "doctor" ? "block" : "none";
+        document.getElementById("patientFields").style.display =
+          role === "patient" ? "block" : "none";
+      }
+
+      async function createUser() {
+        const body = {
+          firstName: document.getElementById("cuFirst").value.trim(),
+          lastName: document.getElementById("cuLast").value.trim(),
+          email: document.getElementById("cuEmail").value.trim(),
+          password: document.getElementById("cuPassword").value,
+          role: document.getElementById("cuRole").value,
+          specialty: document.getElementById("cuSpecialty")?.value.trim(),
+          age: document.getElementById("cuAge")?.value
+            ? parseInt(document.getElementById("cuAge").value)
+            : undefined,
+          gender: document.getElementById("cuGender")?.value,
+        };
+
+        try {
+          await apiFetch("/admin/users", {
+            method: "POST",
+            body: JSON.stringify(body),
+          });
+          closeModal("createUserModal");
+          showToast("Account created ✓", "success");
+          loadAdminUsers(adminCurrentUserFilter);
+        } catch (err) {
+          showError("createUserError", err.message);
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════════════
+      //  ADMIN: ASSIGN PATIENTS
+      // ══════════════════════════════════════════════════════════════════
+      async function loadAssignPage() {
+        try {
+          const { users: patients } = await apiFetch(
+            "/admin/users?role=patient&limit=100",
+          );
+          const { users: doctors } = await apiFetch(
+            "/admin/users?role=doctor&limit=100",
+          );
+
+          const patSel = document.getElementById("assignPatientSel");
+          patSel.innerHTML =
+            '<option value="">Choose patient...</option>' +
+            patients
+              .map(
+                (p) =>
+                  `<option value="${p._id}">${p.firstName} ${p.lastName}${p.assignedDoctor ? " (assigned)" : " (unassigned)"}</option>`,
+              )
+              .join("");
+
+          const docSel = document.getElementById("assignDoctorSel");
+          docSel.innerHTML =
+            '<option value="">Choose doctor...</option>' +
+            doctors
+              .map(
+                (d) =>
+                  `<option value="${d._id}">Dr. ${d.firstName} ${d.lastName}${d.specialty ? " · " + d.specialty : ""}</option>`,
+              )
+              .join("");
+
+          // Unassigned
+          const unassigned = patients.filter((p) => !p.assignedDoctor);
+          document.getElementById("unassignedPatientsList").innerHTML =
+            unassigned.length
+              ? unassigned
+                  .map(
+                    (p) =>
+                      `<div class="info-row"><span>${p.firstName} ${p.lastName}</span><span style="font-size:11px;color:var(--amber)">Needs assignment</span></div>`,
+                  )
+                  .join("")
+              : '<p style="color:var(--green);font-size:13px">✓ All patients are assigned.</p>';
+
+          // Current assignments
+          const assigned = patients.filter((p) => p.assignedDoctor);
+          document.getElementById("assignmentsList").innerHTML = assigned.length
+            ? `<table style="width:100%"><thead><tr><th>Patient</th><th>Doctor</th><th>Action</th></tr></thead><tbody>
+          ${assigned
+            .map(
+              (p) => `<tr>
+            <td>${p.firstName} ${p.lastName}</td>
+            <td>Dr. ${p.assignedDoctor.firstName} ${p.assignedDoctor.lastName}</td>
+            <td><button class="btn-sm btn-red" onclick="doUnassign('${p._id}')">Unassign</button></td>
+          </tr>`,
+            )
+            .join("")}
+        </tbody></table>`
+            : '<p style="color:var(--muted);font-size:13px">No assignments yet.</p>';
+        } catch (err) {
+          showToast(err.message, "err");
+        }
+      }
+
+      async function doAssign() {
+        const patientId = document.getElementById("assignPatientSel").value;
+        const doctorId = document.getElementById("assignDoctorSel").value;
+        if (!patientId || !doctorId) {
+          showToast("Select both patient and doctor", "err");
+          return;
+        }
+        try {
+          const { message } = await apiFetch("/admin/assign", {
+            method: "POST",
+            body: JSON.stringify({ patientId, doctorId }),
+          });
+          showToast(message, "success");
+          loadAssignPage();
+        } catch (err) {
+          showToast(err.message, "err");
+        }
+      }
+
+      async function doUnassign(patientId) {
+        try {
+          const { message } = await apiFetch("/admin/unassign", {
+            method: "POST",
+            body: JSON.stringify({ patientId }),
+          });
+          showToast(message, "success");
+          loadAssignPage();
+        } catch (err) {
+          showToast(err.message, "err");
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════════════
+      //  ADMIN: EXPORT CSV
+      // ══════════════════════════════════════════════════════════════════
+      async function exportCSV() {
+        const from = document.getElementById("exportFrom")?.value || "";
+        const to = document.getElementById("exportTo")?.value || "";
+        const sev = document.getElementById("exportSev")?.value || "";
+
+        let url = `${API}/admin/export-csv?`;
+        if (from) url += `from=${from}&`;
+        if (to) url += `to=${to}&`;
+        if (sev) url += `minSeverity=${sev}&`;
+
+        // Trigger download
+        const a = document.createElement("a");
+        a.href = url;
+        a.setAttribute("Authorization", `Bearer ${authToken}`);
+
+        // Fetch with auth then download
+        try {
+          const res = await fetch(url, {
+            headers: { Authorization: `Bearer ${authToken}` },
+          });
+          if (!res.ok) throw new Error("Export failed");
+          const blob = await res.blob();
+          const objUrl = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = objUrl;
+          link.download = `healthflow_export_${Date.now()}.csv`;
+          link.click();
+          showToast("CSV exported ✓", "success");
+        } catch (err) {
+          showToast(err.message, "err");
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════════════
+      //  UTILITY
+      // ══════════════════════════════════════════════════════════════════
+      function showError(id, msg) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.textContent = msg;
+        el.classList.remove("hidden");
+      }
+
+      function showToast(msg, type = "") {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.className = `toast ${type} show`;
+        setTimeout(() => t.classList.remove("show"), 3500);
+      }
+
+      function openModal(id) {
+        document.getElementById(id).classList.remove("hidden");
+      }
+      function closeModal(id) {
+        document.getElementById(id).classList.add("hidden");
+      }
+
+      function fmtDate(d) {
+        if (!d) return "—";
+        return new Date(d).toLocaleDateString("en-IN", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        });
+      }
+      function fmtDateTime(d) {
+        if (!d) return "—";
+        return new Date(d).toLocaleString("en-IN", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      }
+
+      function showSignup() {
+        document.getElementById("loginPage").classList.add("hidden");
+        document.getElementById("signupPage").classList.remove("hidden");
+      }
+      function showLogin() {
+        document.getElementById("signupPage").classList.add("hidden");
+        document.getElementById("loginPage").classList.remove("hidden");
+      }
+
+      // Severity slider live label
+      document
+        .getElementById("severitySlider")
+        ?.addEventListener("input", function () {
+          const v = parseInt(this.value);
+          const labels = {
+            1: "Very Mild",
+            2: "Mild",
+            3: "Mild",
+            4: "Moderate",
+            5: "Moderate",
+            6: "Moderate",
+            7: "Severe",
+            8: "Severe",
+            9: "Very Severe",
+            10: "Critical",
+          };
+          document.getElementById("sevLabel").textContent = labels[v] || "";
+        });
+
+      // Init date field
+      const dateField = document.getElementById("symptomDate");
+      if (dateField) dateField.valueAsDate = new Date();
+
+      // Auto-login on page load
+      window.addEventListener("load", autoLogin);
+    </script>
+  </body>
+</html>
