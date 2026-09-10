@@ -49,21 +49,19 @@ app.use('/api/auth/register', authLimiter);
 async function createDemoAccounts() {
   try {
     // Create demo admin
-    const adminEmail = process.env.ADMIN_EMAIL || 'admin@healthflow.com';
-    const adminPassword = process.env.ADMIN_PASSWORD || 'Admin@1234';
 
-    const adminExists = await User.findOne({ email: adminEmail });
+    const adminExists = await User.findOne({ email: 'admin@healthflow.com' });
 
     if (!adminExists) {
       await User.create({
         firstName: 'Admin',
         lastName: 'HealthFlow',
-        email: adminEmail,
-        password: adminPassword,
+        email: 'admin@healthflow.com',
+        password: 'Admin@1234',
         role: 'admin'
       });
 
-      console.log(`✓ Demo admin created: ${adminEmail}`);
+      console.log('✓ Demo admin created: admin@healthflow.com');
     } else {
       console.log('✓ Demo admin already exists');
     }
